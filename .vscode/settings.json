@@ -71,6 +71,6 @@
     },
     "git.postCommitCommand": "push",
     "editor.renameOnType": true,
-    "open-in-browser.default": "Chrome",
+    "open-in-browser.default": "chrome",
     "liveServer.settings.CustomBrowser": "chrome"
   }
