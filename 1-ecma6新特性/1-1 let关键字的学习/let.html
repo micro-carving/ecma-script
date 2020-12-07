@@ -15,7 +15,7 @@
         g = "iloveyou",
         h = [];
 
-      // 1.变量不能重复声明
+      // 1.变量不能重复声明（控制台会报错：Uncaught SyntaxError: Identifier 'star' has already been declared）
       // let star = '罗志祥';
       // let star = '小猪';
 
@@ -24,9 +24,10 @@
       // {
       //   let girl = '周扬青';
       // }
+      // 在作用域外使用控制台会报错：Uncaught ReferenceError: girl is not defined at let.html:28
       // console.log(girl);
 
-      // 3. 不存在变量提升（不能在初始化之前进行访问）
+      // 3. 不存在变量提升（控制台会报错：Uncaught ReferenceError: Cannot access 'song' before initialization at let.html:31）
       // console.log(song);
       // let song = '恋爱达人';
 
