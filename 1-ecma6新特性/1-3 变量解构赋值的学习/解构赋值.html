@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>变量的解构赋值</title>
+  </head>
+  <body>
+    <script>
+      //ES6 允许按照一定模式从数组和对象中提取值，对变量进行赋值，这被称为解构赋值。
+      //1. 数组的解构
+      // const F4 = ['小沈阳','刘能','赵四','宋小宝'];
+      // let [xiao, liu, zhao, song] = F4;
+      // console.log(xiao); // 小沈阳
+      // console.log(liu);  // 刘能
+      // console.log(zhao); // 赵四
+      // console.log(song); // 宋小宝
+
+      //2. 对象的解构
+      // const zhao = {
+      //   name: "赵本山",
+      //   age: "不详",
+      //   xiaopin: function () {
+      //     console.log("我可以演小品");
+      //   },
+      // };
+      // let {name, age, xiaopin} = zhao;
+      // console.log(name); // 赵本山
+      // console.log(age);  // 不详
+      // console.log(xiaopin); // ƒ (){ console.log("我可以演小品");}
+      // xiaopin(); // 我可以演小品
+
+      // let { xiaopin } = zhao;
+      // xiaopin(); // 我可以演小品
+
+      //3. 复杂解构
+      let wangfei = {
+        name: "王菲",
+        age: 18,
+        songs: ["红豆", "流年", "暧昧", "传奇"],
+        history: [{ name: "窦唯" }, { name: "李亚鹏" }, { name: "谢霆锋" }],
+      };
+      let {
+        songs: [one, two, three],
+        history: [first, second, third],
+      } = wangfei;
+      console.log(one); // 红豆
+      console.log(first.name); // 窦唯
+    </script>
+  </body>
+</html>
