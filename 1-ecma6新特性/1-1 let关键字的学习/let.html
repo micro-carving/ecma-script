@@ -1,17 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>let关键字的学习</title>
-</head>
-<body>
+  </head>
+  <body>
     <script>
-        // 声明变量
-        let a;
-        let b,c,d;
-        let e = 100;
-        let f = 520, g = 'iloveyou', h = [];
-        
+      // 声明变量
+      let a;
+      let b, c, d;
+      let e = 100;
+      // 批量声明
+      let f = 520,
+        g = "iloveyou",
+        h = [];
+
+      // 1.变量不能重复声明
+      // let star = '罗志祥';
+      // let star = '小猪';
+
+      // 2.块儿级作用域 全局，函数，eval
+      // if else while for 只在块级中有效
+      // {
+      //   let girl = '周扬青';
+      // }
+      // console.log(girl);
+
+      // 3. 不存在变量提升（不能在初始化之前进行访问）
+      // console.log(song);
+      // let song = '恋爱达人';
+
+      // 4.不影响作用域链
+      // {
+      //   let name = "ecma";
+      //   // 函数fn中没有定义，向上一级块级作用域找
+      //   function fn() {
+      //     console.log(name);
+      //   }
+      //   fn();
+      // }
     </script>
-</body>
+  </body>
 </html>
