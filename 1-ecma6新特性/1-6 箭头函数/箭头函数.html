@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>箭头函数</title>
+  </head>
+
+  <body>
+    <script>
+      // ES6 允许使用「箭头」（=>）定义函数。
+      //声明一个函数
+      // es5写法
+      let fn1 = function (args1, args2, args3) {
+        return args1 + args2 + args3;
+      };
+      // es6写法（使用箭头函数）
+      let fn2 = (args1, args2, args3) => {
+        return args1 + args2 + args3;
+      };
+      //调用函数
+      // let result1 = fn1(1, 2, 4);
+      // console.log(result1); // 输出：7
+      // let result2 = fn2(1, 2, 3);
+      // console.log(result2); // 输出：6
+
+      //1. this是静态的。this 始终指向「函数声明时所在作用域」下的 this 的值
+      // 普通函数
+      function getName() {
+        console.log(this.name);
+      }
+      // 箭头函数
+      let getName2 = () => {
+        console.log(this.name);
+      };
+      //设置 window 对象的 name 属性
+      window.name = "尚硅谷";
+      const school = {
+        name: "ATGUIGU",
+      };
+      //直接调用
+      // getName(); // 输出：尚硅谷
+      // getName2();// 输出：尚硅谷
+      //call 方法调用
+      // getName.call(school); // 输出：ATGUIGU
+      // getName2.call(school);// 输出：尚硅谷
+
+      //2. 不能作为构造实例化对象
+      // 普通函数
+      // let Person1 = function(name, age) {
+      //   this.name = name;
+      //   this.age = age;
+      // }
+      // let me1 = new Person1('hello',18);
+      // console.log(me1); // 输出：Person1 {name: "hello", age: 18}
+      // // 箭头函数
+      // let Person = (name, age) => {
+      //     this.name = name;
+      //     this.age = age;
+      // }
+      // let me = new Person('xiao',30);
+      // console.log(me); // 控制台报错：Uncaught TypeError: Person is not a constructor at 箭头函数.html:61
+
+      //3. 不能使用 arguments 变量
+      // let fn = () => {
+      //   console.log(arguments); // 控制台报错：Uncaught ReferenceError: arguments is not defined at fn (箭头函数.html:66)
+      // };
+      // fn(1, 2, 3);
+
+      //4. 箭头函数的简写
+      //1) 省略小括号, 当形参有且只有一个的时候
+      // let add = n => {
+      //     return n + n;
+      // }
+      // console.log(add(9)); // 输出：18
+      //2) 省略花括号, 当代码体只有一条语句的时候, 此时 return 必须省略
+      // 而且语句的执行结果就是函数的返回值
+      // let pow = n => n * n;
+      // console.log(pow(8)); // 输出：64
+    </script>
+  </body>
+</html>
