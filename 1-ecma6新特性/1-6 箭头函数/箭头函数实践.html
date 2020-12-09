@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>箭头函数实践</title>
+    <style>
+      div {
+        width: 200px;
+        height: 200px;
+        background: #58a;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="ad"></div>
+    <script>
+      //需求-1  点击 div 2s 后颜色变成『粉色』
+      //获取元素
+      let ad = document.getElementById("ad");
+      //绑定事件
+      ad.addEventListener("click", function () {
+        //保存 this 的值，_this指向的是当前函数作用域，而当前函数指向的是ad，也就是<div>下作用域
+        let _this = this;
+        console.log(_this); // 输出：<div id="ad"></div>
+
+        // -------------定时器（普通函数）-------------
+        // setTimeout(function(){
+        //   // 此时的this指向的是当前函数作用域，也就是Window
+        //   // console.log(this);// 输出Window{...}
+        //   // this.style.background = 'pink';// 控制台报错：Uncaught TypeError: Cannot set property 'background' of undefined
+        //   // 解决上述问题，改变（或者称为保存）作用域，使用_this = this，通过_this来进行访问
+        //   // _this.style.background = 'pink';
+        // }, 2000);
+
+        // -------------定时器（箭头函数）-------------
+        setTimeout(() => {
+          // 为什么此处的this可以使用呢？
+          // 是因为箭头函数始终指向「函数声明时所在作用域」，也就是function下的作用域（上一层作用域），效果与使用_this = this同理！
+          console.log(this); // 控制台打印：<div id="ad"></div>
+          this.style.background = "pink";
+        }, 2000);
+      });
+
+      //需求-2  从数组中返回偶数的元素
+      const arr = [1, 6, 9, 10, 100, 25];
+      // -------------数组的过滤（普通函数）-------------
+      const result = arr.filter(function (item) {
+        // 是偶数返回true，否则返回false
+        if (item % 2 === 0) {
+          return true;
+        } else {
+          return false;
+        }
+      });
+      console.log(result);
+
+      // -------------数组的过滤（箭头函数）-------------
+      // const result = arr.filter(item => item % 2 === 0);
+      // console.log(result);
+
+      // 【总结】
+      // 箭头函数【适合】与 this 无关的回调. 如：定时器, 数组的方法回调
+      // 箭头函数【不适合】（不代表不能）与 this 有关的回调. 如：dom事件的回调, 对象的方法
+    </script>
+  </body>
+</html>
