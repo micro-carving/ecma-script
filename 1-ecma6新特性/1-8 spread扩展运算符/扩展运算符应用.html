@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>扩展运算符应用</title>
+  </head>
+  <body>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <script>
+      //1. 数组的合并 java python css html
+      const back_end = ["java", "python"];
+      const front_end = ["css", "html"];
+      // 使用数组的连接
+      const program_language1 = back_end.concat(front_end);
+      console.log(program_language1); // 输出：["java","python","css","html"]
+      console.log(...back_end); // 输出：java python
+      console.log(...front_end); // 输出：css html
+      const program_language2 = [...back_end, ...front_end];
+      console.log(program_language2); // 输出：["java","python","css","html"]
+
+      //2. 数组的克隆
+      const sanzhihua = ["E", "G", "M"];
+      console.log(...sanzhihua); // 输出：E G M
+      const sanyecao = [...sanzhihua];
+      console.log(sanyecao); // 输出：['E','G','M']
+
+      //3. 将伪数组转为真正的数组
+      const divs = document.querySelectorAll("div");
+      console.log(divs); // 输出：NodeList(3) [div, div, div]
+      console.log(...divs); // 输出：<div>​</div>​ <div>​</div>​ <div>​</div>​
+      const divArr = [...divs];
+      console.log(divArr); // 输出：[div, div, div]
+    </script>
+  </body>
+</html>

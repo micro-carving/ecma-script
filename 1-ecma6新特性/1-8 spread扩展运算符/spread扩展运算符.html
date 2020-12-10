@@ -8,21 +8,51 @@
   <body>
     <script>
       // 『...』 扩展运算符能将『数组』转换为逗号分隔的『参数序列』，将这样的过程称为【解包】。
-      //声明一个数组 ...
+      // --------- 展开数组的合并 ---------
+      //声明一个数组
       const tfboys = ["易烊千玺", "王源", "王俊凯"];
       // 使用扩展运算符将上述 => '易烊千玺','王源','王俊凯'
       // 声明一个函数
       function chunwan() {
         console.log(arguments);
       }
+      console.log(...tfboys); // 输出：易烊千玺 王源 王俊凯
       // 此时将整个数组作为一个参数进行输出
       chunwan(tfboys); // 输出：Argument(1)<br>0: (3) ["易烊千玺", "王源", "王俊凯"]
       // 此时将整个数组解包，作为三个参数进行输出
       chunwan(...tfboys); // 输出：Argument(3)<br>0: "易烊千玺"<br>1: "王源" <br>2: "王俊凯"
 
+      // --------- 展开对象的合并 ---------
+      let skillOne = {
+        q: "致命打击",
+      };
+      let skillTwo = {
+        w: "勇气",
+      };
+      let skillThree = {
+        e: "审判",
+      };
+      let skillFour = {
+        r: "德玛西亚正义",
+      };
+      // 不能对对象进行扩展运算符操作，控制会提示如下错误：// 输出： Uncaught TypeError: Found non-callable @@iterator
+      // console.log(...skillOne);
+      // 合并
+      let gailun = { ...skillOne, ...skillTwo, ...skillThree, ...skillFour };
+      console.log(gailun); // 输出：{q: "致命打击", w: "勇气", e: "审判", r: "德玛西亚正义"}
+
+      // --------- 混合展开合并 ---------
+      let pc = ["联想", "戴尔", "微星", "外星人"];
+      let config = {
+        cpu: "i7",
+        gpu: "RTX3070",
+      };
+      // 合并
+      let computer = { ...pc, ...config };
+      console.log(computer); // 输出：{0: "联想", 1: "戴尔", 2: "微星", 3: "外星人", cpu: "i7", gpu: "RTX3070"}
       // 【总结】注意spread和rest区别
-      // rest：一般用于『形参』，而且参数位置必须是放在最后；
-      // spread：一般用于『实参』，将要输出的数组进行解包。
+      // rest：一般用于『形参』，而且参数位置必须是放在最后，适用于不定参数使用的场景；
+      // spread：一般用于『实参』，只能对数组进行解包，不能对对象进行解包，能对解包之后的内容进行合并，适用于数组或者对象的合并和克隆等场景。
     </script>
   </body>
 </html>
