@@ -72,5 +72,6 @@
     "git.postCommitCommand": "push",
     "editor.renameOnType": true,
     "open-in-browser.default": "chrome",
-    "liveServer.settings.CustomBrowser": "chrome"
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.port": 5501
   }

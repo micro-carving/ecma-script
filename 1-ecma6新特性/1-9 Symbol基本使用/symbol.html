@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>symbol</title>
+  </head>
+  <body>
+    <script>
+      // -------------- 1.Symbol的创建 --------------
+      // 第一种：直接创建Symbol函数
+      let s1_1 = Symbol();
+      // 控制台输出：s1_1的值为： Symbol() ，s1_1的类型为： symbol
+      console.log("s1_1的值为：", s1_1, "，s1_1的类型为：", typeof s1_1);
+      let s1_2 = Symbol();
+      // 控制台输出：s1_1是否与s1_2相等： false
+      console.log("s1_1是否与s1_2相等：", s1_1 === s1_2);
+
+      // 第二种：Symbol函数对象的for方法创建
+      let s1_3 = Symbol.for("尚硅谷");
+      let s1_4 = Symbol.for("尚硅谷");
+      // 控制台输出：s1_3是否与s1_4相等： true
+      console.log("s1_3是否与s1_4相等：", s1_3 === s1_4);
+
+      // -------------- 2.Symbol的唯一性 --------------
+      // 添加标识的symbol，值唯一性的，用来解决命名冲突的问题
+      // symbol接受一个字符串作为参数，表示对symbol的描述，主要是在控制台显示时容易区分，当无参数时，两个Symbol是不相等的，如 1.Symbol的创建中已经说明，实际开发中为了区别，尽量使用带参加以区分！
+      let s2_1 = Symbol("foo");
+      let s2_2 = Symbol("bar");
+      // 控制台输出：s2_1的值为： Symbol(foo)
+      console.log("s2_1的值为：", s2_1);
+      // 控制台输出：s2_2的值为： Symbol(bar)
+      console.log("s2_2的值为：", s2_2);
+      // 控制台输出：s2_1是否与s2_2相等： false
+      console.log("s2_1是否与s2_2相等：", s2_1 === s2_2);
+
+      // -------------- 3.Symbol不能参与运算 --------------
+      let s3_1 = Symbol("My Symbol");
+      // 错误1，提示：Uncaught TypeError: Cannot convert a Symbol value to a number。
+      // let result3_1 = s3_1 + 100;
+      // let result3_2 = s3_1 > 100;
+      // let result3_3 = s3_1 + s3_1;
+
+      // 错误2，提示：Uncaught TypeError: Cannot convert a Symbol value to a string。
+      // let result3_4 = "your symbol is" + s3_1;
+      // let result3_5 = `your symbol is ${s3_1}`;
+
+      // -------------- 4.Symbol不能使用new关键字 --------------
+      // Symbol函数前不能使用new关键字，否则会报错，这是因为Symbol是原始数据类型，而不是对象，所以不能添加属性
+      // 控制台会提示：Uncaught TypeError: Symbol is not a constructor
+      // let s4_1 = new Symbol();
+
+      // -------------- 5.Symbol与其他类型的转换 --------------
+      // 可以显式转为字符串、布尔值，但是不能转为数字
+      // 转为字符串
+      let s5_1 = Symbol("My Symbol");
+      // 控制台输出：String(s5_1)的值为： Symbol(My Symbol)
+      console.log("String(s5_1)的值为：", String(s5_1));
+      // 控制台输出：s5_1.toString()的值为： Symbol(My Symbol)
+      console.log("s5_1.toString()的值为：", s5_1.toString());
+
+      // 转为布尔值
+      let s5_2 = Symbol();
+      // 控制台输出：Boolean(s5_2)的值为： true
+      console.log("Boolean(s5_2)的值为：", Boolean(s5_2));
+      // 控制台输出：!s5_2的值为： false
+      console.log("!s5_2的值为：", !s5_2);
+      if (s5_2) {
+        // 控制台输出：if为真
+        console.log("if为真");
+      }
+      // 关于数字的转换 3.1中参与运算已说明！
+
+      // -------------- 6.Symbol作为标识符正确使用 --------------
+      // 必须要将创建Symbol函数的变量放入[ ]中，如果不放在[ ]中表示该属性名就是字符串，而不是Symbol类型。如第二种写法的错误案例。
+      let s6_1 = Symbol();
+      // 第一种写法
+      let a = {};
+      a[s6_1] = "hello";
+      // 控制台输出：a的值为： {Symbol(): "hello"}
+      console.log("a的值为：", a);
+      // 控制台输出：a[s6_1]的值为： hello
+      console.log("a[s6_1]的值为：", a[s6_1]);
+
+      // 第二种写法
+      // 错误案例：
+      let errorDemo = {
+        s6_1: "error",
+      };
+      // 控制台输出：errorDemo的值为： {s6_1: "error"}
+      console.log("errorDemo的值为：", errorDemo);
+      // 控制台输出：erroDemo.s6_1的类型值为： string
+      console.log("erroDemo.s6_1的类型值为：", typeof errorDemo.s6_1);
+
+      // 正确写法
+      let b = {
+        [s6_1]: "hello",
+      };
+      // 控制台输出：b的值为： {Symbol(): "hello"}
+      console.log("b的值为：", b);
+      // 控制台输出：b[s6_1]的值为： hello
+      console.log("b[s6_1]的值为：", b[s6_1]);
+
+      // 第三种写法
+      let c = {};
+      let prop = Object.defineProperty(c, s6_1, { value: "hello" });
+      // 控制台输出：prop的值为： {Symbol(): "hello"}
+      console.log("prop的值为：", prop);
+      // 控制台输出：prop[s6_1]的值为： hello
+      console.log("prop[s6_1]的值为：", prop[s6_1]);
+
+      // 第四种写法
+      // 向对象中添加添加methods对象中的attack与move方法，有2种方式，如下：
+      // 第1种方式
+      let game = {
+        name: "英雄联盟",
+        attack: function () {},
+        move: function () {},
+      };
+      // 声明一个对象
+      let methods = {
+        // 注意这个位置的attack虽然与game的attack名称相同，但是类型却不同
+        attack: Symbol("攻击"),
+        move: Symbol("移动"),
+      };
+      game[methods.attack] = function () {
+        console.log("使用英雄进行攻击敌人或者敌方小兵以及防御塔！");
+      };
+      game[methods.move] = function () {
+        console.log("点击鼠标左键，英雄会跟随光标进行移动！");
+      };
+      // 控制台输出：game的值为： {name: "英雄联盟", attack: ƒ, move: ƒ, Symbol(攻击): ƒ, Symbol(移动): ƒ}
+      console.log("game的值为：", game);
+
+      // 第2种方式
+      let youxi = {
+        // ...
+        [Symbol("攻击")]: function () {
+          console.log("使用英雄进行攻击敌人或者敌方小兵以及防御塔！");
+        },
+        [Symbol("移动")]: function () {
+          console.log("点击鼠标左键，英雄会跟随光标进行移动！");
+        },
+      };
+      // 控制台输出：youxi的值为： {Symbol(攻击): ƒ, Symbol(移动): ƒ}
+      console.log("youxi的值为：", youxi);
+
+      // -------------- 7.Symbol作为标识符的对象属性遍历 --------------
+      // Symbol定义的对象属性不能使用for-in循环遍历，但是可以使用Reflect.ownKeys来获取对象的所有键名。
+      let s7_1 = Symbol();
+      let s7_2 = Symbol();
+      let props = {
+        [s7_1]: "hello",
+        [s7_2]: "javaScript",
+      };
+      // 使用for-in遍历时，控制台无报错同时无输出！
+      for (const key in props) {
+        // 控制台不报错，同时也无输出！
+        console.log("直接使用for-in遍历的key为：", key);
+      }
+
+      // 使用Reflect.ownKeys遍历时
+      let refKeys = Reflect.ownKeys(props);
+      // 控制台输出：Reflect.ownKeys的结果为： (2) [Symbol(), Symbol()]
+      console.log("Reflect.ownKeys的结果为：", refKeys);
+      for (const key in refKeys) {
+        // 控制台输出：第一次结果为：0；第二次结果为：1
+        console.log("使用Reflect.ownKeys方式for-in遍历的key为：", key);
+      }
+
+      // -------------- 8.Symbol应用场景 --------------
+      // 定义一组常量，保证这组常量是不相同的
+      const COLOR_RED = Symbol("red");
+      const COLOR_GREEN = Symbol("green");
+      const COLOR_BLUE = Symbol("blue");
+      let getColor = (color) => {
+        switch (color) {
+          case COLOR_RED:
+            return "red";
+            break;
+          case COLOR_GREEN:
+            return "green";
+            break;
+          case COLOR_BLUE:
+            return "blue";
+            break;
+          default:
+            console.error("Undefined color");
+            break;
+        }
+      };
+      const COLOR_YELLOW = Symbol("yellow");
+      let colorVal_1 = getColor(COLOR_RED);
+      // 控制台输出：colorVal_1的值为： red
+      console.log("colorVal_1的值为：", colorVal_1);
+      let colorVal_2 = getColor(COLOR_YELLOW);
+      // 控制台输出：红色标记的Undefined color
+      // colorVal_2的值为： undefined
+      console.log("colorVal_2的值为：", colorVal_2);
+
+      // 消除魔法值（魔法值是指某一个具体的字符串或数字在代码中可能出现多次，并与代码形成强耦合的值，为后续开发中带来不便并难以维护；因此良好的代码风格应由含义清晰的变量来代替。）
+      // 错误的示例：
+      let getAreaErrorDemo = (shape, options) => {
+        let area = 0;
+        switch (shape) {
+          case "rectangle":
+            area = options.width * options.height;
+            break;
+          case "triangle":
+            area = 0.5 * options.width * options.height;
+            break;
+          default:
+            console.error("undefined shape！");
+            break;
+        }
+        return area;
+      };
+      // triangle作为魔法值，被多次使用，如果后续改变需求，出现与"triangle"相同的变量或者字符串，如何区分呢？
+      let triangleAreaErrorDemo = getAreaErrorDemo("triangle", {
+        width: 100,
+        height: 2,
+      });
+
+      // 改进方式（正确案例）
+      // 使用Symbol函数的唯一性，进而消除魔法值。
+      let shapeType = {
+        triangle: Symbol("三角形"),
+        rectangle: Symbol("矩形"),
+      };
+      let getAreaCorrectDemo = (shape, options) => {
+        let area = 0;
+        switch (shape) {
+          case shapeType.rectangle:
+            area = options.width * options.height;
+            break;
+          case shapeType.triangle:
+            area = 0.5 * options.width * options.height;
+            break;
+          default:
+            console.error("undefined shape！");
+            break;
+        }
+        return area;
+      };
+      let triangleAreaCorrectDemo = getAreaCorrectDemo(shapeType.triangle, {
+        width: 100,
+        height: 2,
+      });
+    </script>
+  </body>
+</html>
