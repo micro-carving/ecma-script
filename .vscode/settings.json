@@ -29,7 +29,7 @@
     //失去焦点后自动保存
     "files.autoSave": "onFocusChange",
     // #值设置为true时，每次保存的时候自动格式化；
-    "editor.formatOnSave": false,
+    "editor.formatOnSave": true,
      //每120行就显示一条线
     "editor.rulers": [
     ],
