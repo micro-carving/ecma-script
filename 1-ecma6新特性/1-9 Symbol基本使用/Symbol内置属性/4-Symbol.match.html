@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symbol内置属性4——Symbol.match</title>
+  </head>
+  <body>
+    <script>
+      // 对象的Symbol.match属性，指向一个函数。当执行str.match(myObject)时，如果该属性存在，会调用它，返回该方法的返回值。
+      // String.prototype.match(regexp);
+      // 等同于
+      // regexp[Symbol.match](this);
+      class MyMatcher {
+        [Symbol.match](string) {
+          return "hello world".indexOf(string);
+        }
+      }
+      // 控制台输出：1
+      console.log("e".match(new MyMatcher()));
+      // Symbol.match方法会接受一个参数，这个参数可以为字符串类型的值，查找当前值是否在指定的正则表达式或者字符串中存在，返回对应的下标位置。例如：上面的“e”在字符串“hello world”中为第二个字符，即下标为1。
+    </script>
+  </body>
+</html>

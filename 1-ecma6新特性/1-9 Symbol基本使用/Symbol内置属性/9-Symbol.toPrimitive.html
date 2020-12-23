@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symbol内置属性9——Symbol.toPrimitive</title>
+  </head>
+  <body>
+    <script>
+      // 对象的Symbol.toPrimitive属性，指向一个方法。该对象被转为原始类型的值时，会调用这个方法，返回该对象对应的原始类型值。
+
+      //  Symbol.toPrimitive被调用时，会接受一个字符串参数，表示当前运算的模式，一共有三种模式。
+
+      // - Number：该场合需要转成数值；
+      // - String：该场合需要转成字符串；
+      // - Default：该场合可以转成数值，也可以转成字符串；
+      // 下面是一个例子。
+      let obj = {
+        [Symbol.toPrimitive](hint) {
+          switch (hint) {
+            case "number":
+              return 123;
+            case "string":
+              return "str";
+            case "default":
+              return "default";
+            default:
+              throw new Error();
+          }
+        },
+      };
+      // 控制台输出：246
+      console.log(2 * obj);
+      // 控制台输出：3default
+      console.log(3 + obj);
+      // 控制台输出：true
+      console.log(obj == "default");
+      // 控制台输出：str
+      console.log(String(obj));
+      // Symbol.toPrimitive被调用时，根据传入的参数类型，执行运算模式。
+    </script>
+  </body>
+</html>

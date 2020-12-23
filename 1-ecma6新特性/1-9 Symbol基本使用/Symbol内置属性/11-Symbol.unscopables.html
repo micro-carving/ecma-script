@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symbol内置属性11——Symbol.unscopables</title>
+  </head>
+  <body>
+    <script>
+      // 对象的Symbol.unscopables属性，指向一个对象。该对象指定了使用with关键字时，哪些属性会被with环境排除。
+      // 下面是一个例子。
+      // 例一
+      Array.prototype[Symbol.unscopables];
+      // 控制台输出：["copyWithin", "entries", "fill", "find", "findIndex", "flat", "flatMap", "includes", "keys", "values"]
+      console.log(Object.keys(Array.prototype[Symbol.unscopables]));
+      // 上面代码说明，数组有 7 个属性，会被with命令排除。
+
+      // 例二
+      // 没有 unscopables 时
+      class MyClass1 {
+        foo1() {
+          return 1;
+        }
+      }
+      let foo1 = function () {
+        return 2;
+      };
+      with (MyClass1.prototype) {
+        // 控制台输出：1
+        console.log(foo1());
+      }
+      // 有 unscopables 时
+      class MyClass2 {
+        foo2() {
+          return 1;
+        }
+        get [Symbol.unscopables]() {
+          return { foo2: true };
+        }
+      }
+      let foo2 = function () {
+        return 2;
+      };
+      with (MyClass2.prototype) {
+        // 控制台输出：2
+        console.log(foo2());
+      }
+      // 上面代码通过指定Symbol.unscopables属性，使得with语法块不会在当前作用域寻找foo2属性，即foo2将指向外层作用域的变量。
+    </script>
+  </body>
+</html>

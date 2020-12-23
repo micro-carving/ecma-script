@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Symbol内置属性8——Symbol.iterator</title>
+  </head>
+  <body>
+    <script>
+      // 对象的Symbol.iterator属性，指向该对象的默认遍历器方法。
+      const myIterable = {};
+      // 构造一个生成器，yield是ES6新增关键字，后续会学习中会提到！
+      myIterable[Symbol.iterator] = function* () {
+        yield 1;
+        yield 2;
+        yield 3;
+      };
+      // 控制台输出：[1,2,3]
+      console.log([...myIterable]);
+
+      // 下面是一个例子。
+      class Collection {
+        *[Symbol.iterator]() {
+          let i = 0;
+          while (this[i] !== undefined) {
+            yield this[i];
+            ++i;
+          }
+        }
+      }
+      let myCollection = new Collection();
+      myCollection[0] = 1;
+      myCollection[1] = 2;
+      // 控制台输出：1 </br> 2
+      for (let value of myCollection) {
+        console.log(value);
+      }
+      // 从上述代码可以看出，对象进行for...of循环时，会调用Symbol.iterator方法，返回该对象的默认遍历器。
+    </script>
+  </body>
+</html>
