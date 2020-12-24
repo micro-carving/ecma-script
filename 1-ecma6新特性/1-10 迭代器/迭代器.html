@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>迭代器</title>
+  </head>
+  <body>
+    <script>
+      // 声明一个数组
+      const xiyou = ["唐僧", "孙悟空", "猪八戒", "沙僧"];
+
+      // 使用 for...of 遍历数组
+      // 控制台输出：唐僧 </br> 孙悟空 </br> 猪八戒 </br> 沙僧
+      for (let v of xiyou) {
+        console.log(v);
+      }
+
+      // 这个Iterator是一种接口，使用Symbol的内置方法中的iterator方法
+      // 工作原理：a) - d)
+      // a)创建一个指针对象，指向当前数据结构的起始位置
+      let iterator = xiyou[Symbol.iterator]();
+
+      // 调用对象的next方法
+      // b)第一次调用对象的next方法，指针自动指向数据结构的第一个成员
+      // 控制台输出：{value: "唐僧", done: false}
+      console.log(iterator.next());
+      // c)接下来不断调用next方法，指针一直往后移动，直到指向最后一个成员
+      // 控制台输出：{value: "孙悟空", done: false}
+      console.log(iterator.next());
+      // d)每调用next方法返回一个包含value和done属性的对象
+      // 控制台输出：{value: "猪八戒", done: false}
+      console.log(iterator.next());
+      // 控制台输出：{value: "沙僧", done: false}
+      console.log(iterator.next());
+      // 控制台输出：{value: undefined, done: true}
+      console.log(iterator.next());
+      // 从上述代码中可以看出，每调用next方法，返回值都包含value和done属性，当value属性为underfined，并且done属性为true表示该数组遍历结束。
+    </script>
+  </body>
+</html>
