@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生成器函数实例1——定时输出内容</title>
+  </head>
+
+  <body>
+    <script>
+      // 应用场景：异步编程，例如：文件操作(fs) 网络操作(ajax, request) 数据库操作(mongodb)
+      // 需求：1s 后控制台输出 111；2s后输出 222；3s后输出 333。
+      // 两种写法：
+      // 1）回调地狱写法：
+      // 缺点：不利于调试以及阅读代码
+      setTimeout(() => {
+        console.log(111);
+        setTimeout(() => {
+          console.log(222);
+          setTimeout(() => {
+            console.log(333);
+          }, 3000);
+        }, 2000);
+      }, 1000);
+
+      // ------------------ 华丽的分割线 ------------------
+      // 2）生成器写法
+      // 优点：利于调试以及阅读代码
+      function one() {
+        setTimeout(() => {
+          console.log(111);
+          // 代码核心与关键之处，指针指向下一个方法
+          iterator.next();
+        }, 1000);
+      }
+
+      function two() {
+        setTimeout(() => {
+          console.log(222);
+          iterator.next();
+        }, 2000);
+      }
+
+      function three() {
+        setTimeout(() => {
+          console.log(333);
+          iterator.next();
+        }, 3000);
+      }
+
+      function* gen() {
+        yield one();
+        yield two();
+        yield three();
+      }
+      //调用生成器函数
+      let iterator = gen();
+      iterator.next();
+    </script>
+  </body>
+</html>

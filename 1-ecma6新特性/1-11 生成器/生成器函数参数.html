@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>生成器函数参数</title>
+  </head>
+  <body>
+    <script>
+      function* gen(arg) {
+        console.log(arg);
+        let one = yield 111;
+        console.log(one);
+        let two = yield 222;
+        console.log(two);
+        let three = yield 333;
+        console.log(three);
+      }
+      // 执行获取迭代器对象
+      let iterator = gen("AAA");
+      // 控制台输出：AAA <br> {value: 111, done: false}
+      console.log(iterator.next("112"));
+      // next方法可以传入实参，该参数会被当作上一个yield表达式的返回值
+      // 控制台输出：BBB <br> {value: 222, done: false}
+      console.log(iterator.next("BBB"));
+      // 控制台输出：CCC <br> {value: 333, done: false}
+      console.log(iterator.next("CCC"));
+      // 控制台输出：DDD <br> {value: undefined, done: true}
+      console.log(iterator.next("DDD"));
+    </script>
+  </body>
+</html>
