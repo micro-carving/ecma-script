@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>发送 AJAX 请求</title>
+  </head>
+
+  <body>
+    <script>
+      // 接口地址: https://api.apiopen.top/getJoke
+      const p = new Promise((resolve, reject) => {
+        // 1.创建对象
+        const xhr = new XMLHttpRequest();
+        // 2.初始化
+        xhr.open("get", "https://api.apiopen.top/getJoke");
+        // 3.发送
+        xhr.send();
+        // 4.绑定事件，处理响应结果
+        xhr.onreadystatechange = function () {
+          // 判断 0：请求尚未初始化；1：载入，正向服务端发送请求；2：载入完成，接收服务端响应的原始数据（响应头）；3：交互，接收响应主体，解析接收到的服务端响应数据；4：完成，接收响应数据成功，解析已经完成。
+          if (xhr.readyState === 4) {
+            // 判断响应状态码 200-299直接都表示成功
+            if (xhr.status >= 200 && xhr.status < 300) {
+              // 表示成功
+              resolve(xhr.response);
+            } else {
+              // 表示失败
+              reject(xhr.status);
+            }
+          }
+        };
+      });
+      // 指定回调
+      p.then(
+        (value) => {
+          // 控制台输出：接口地址回调内容
+          console.log(value);
+        },
+        (reason) => {
+          // 控制台输出：404
+          console.error(reason);
+        }
+      );
+    </script>
+  </body>
+</html>

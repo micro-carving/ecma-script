@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Promise基本语法</title>
+  </head>
+  <body>
+    <script>
+      // 实例化 Promise 对象
+      const p = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          let data = "数据库中的用户数据";
+          // 执行成功之后返回的数据
+          resolve(data);
+          let error = "数据读取失败！";
+          // 执行失败之后返回的数据
+          // reject(error);
+        });
+      }, 1000);
+      // 调用promise对象的then方法
+      p.then(
+        (value) => {
+          // 执行成功之后，控制台输出：数据库中的用户数据
+          console.log(value);
+        },
+        (reason) => {
+          // 执行失败之后，控制台输出：数据读取失败！
+          console.error(reason);
+        }
+      );
+    </script>
+  </body>
+</html>
