@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>catch方法</title>
+  </head>
+  <body>
+    <script>
+      // 创建一个Promise对象
+      const p = new Promise((resolve, reject) => {
+        setTimeout(() => {
+          reject("出错啦！");
+        }, 1000);
+      });
+
+      // 使用then方法进行成功或者失败的回调
+      p.then(
+        (value) => {},
+        (reason) => {
+          // 控制台输出：红色标记的"出错啦！"
+          console.error(reason);
+        }
+      );
+
+      // 使用catch方法进行失败的回调
+      p.catch((reason) => {
+        // 控制台输出：黄色标记的"出错啦！"
+        console.warn(reason);
+      });
+
+      // 总结：
+      // 当如果有2个参数（成功或者失败）进行回调时，可以使用then方法；而仅仅是对失败进行回调时或者捕获时，可以使用catch方法，catch是一个语法糖。
+    </script>
+  </body>
+</html>
